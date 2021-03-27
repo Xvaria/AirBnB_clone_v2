@@ -134,16 +134,16 @@ class HBNBCommand(cmd.Cmd):
                 pair[1] = pair[1][1:-1].replace('"', '\"')
                 pair[1] = pair[1].replace('_', ' ')
 
-            # # Check if its an integer.
-            # elif pair[1].isdigit():
-            #     pair[1] = int(pair[1])
+            # Check if its an integer.
+            elif pair[1].isdigit():
+                pair[1] = int(pair[1])
 
-            # # Check if its a float.
-            # else:
-            #     try:
-            #         pair[1] = float(pair[1])
-            #     except:
-            #         continue
+            # Check if its a float.
+            else:
+                try:
+                    pair[1] = float(pair[1])
+                except:
+                    continue
 
             setattr(new_instance, pair[0], pair[1])
 
