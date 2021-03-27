@@ -126,11 +126,26 @@ class HBNBCommand(cmd.Cmd):
 
         new_instance = HBNBCommand.classes[args[0]]()
 
+        # For setting attributes of the new instance.
         for attributes in args[1:]:
-           pair = attributes.split('=')
-           pair[1] = pair[1][1:-1].replace('"', '\"')
-           pair[1] = pair[1].replace('_', ' ')
-           setattr(new_instance, pair[0], pair[1])
+            pair = attributes.split('=')
+            # Check if its a string.
+            if pair[1][0] == '"':
+                pair[1] = pair[1][1:-1].replace('"', '\"')
+                pair[1] = pair[1].replace('_', ' ')
+
+            # # Check if its an integer.
+            # elif pair[1].isdigit():
+            #     pair[1] = int(pair[1])
+
+            # # Check if its a float.
+            # else:
+            #     try:
+            #         pair[1] = float(pair[1])
+            #     except:
+            #         continue
+
+            setattr(new_instance, pair[0], pair[1])
 
         # ------------------------------------------------------
 
