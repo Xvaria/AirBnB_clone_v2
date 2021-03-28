@@ -5,21 +5,34 @@ Usage:
     "python3 -m unittest discover tests" command or
     "python3 -m unittest tests/test_console.py"
 """
-
-from console import HBNBCommand
-import unittest
+from models.engine.file_storage import FileStorage as Storage
 from unittest.mock import create_autospec, patch
-import sys
+from console import HBNBCommand
 from io import StringIO
-import os
+import unittest
 import pep8
+import sys
+import os
 
-classes = ["BaseModel", "User", "State", "City",
-           "Amenity", "Place", "Review"]
+classes = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
+Storage = Storage()
 
 
 class TestConsole(unittest.TestCase):
     ''' TestCase class for storing the unittests of the console. '''
+
+    def test_create_00(self):
+        ''' Tests for the create command. '''
+        # Create console session.
+        cons = self.create_session()
+
+        # Test "create {} name='California'".
+        with patch('sys.stdout', new=StringIO()) as Output:
+            cons.onecmd('create State name=\"California\"')
+            create_stdout = Output.getvalue().strip()
+            create_stdout = 'State.{}'.format(create_stdout)
+            self.assertTrue(create_stdout in Storage.all())
+
     @classmethod
     def teardown(cls):
         ''' Removes the file.json on each test. '''
@@ -36,11 +49,3 @@ class TestConsole(unittest.TestCase):
     def create_session(self, server=None):
         ''' Creates the cmd session. '''
         return HBNBCommand(stdin=self.mock_stdin, stdout=self.mock_stdout)
-
-    def test_create(self):
-        ''' Tests for the create command. '''
-        cli = self.create_session()
-        with patch('sys.stdout', new=StringIO()) as Output:
-            self.assertFalse(cli.onecmd('create'))
-        self.assertEqual('** class name missing **',
-                         Output.getvalue().strip())
