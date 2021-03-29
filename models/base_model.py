@@ -4,7 +4,7 @@ import uuid
 from datetime import datetime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, Integer, MetaData, DateTime
-
+from os import getenv as env
 
 Base = declarative_base()
 
@@ -16,6 +16,7 @@ class BaseModel:
                         nullable=False)
     updated_at = Column(DateTime, default=datetime.utcnow(),
                         nullable=False)
+
     def __init__(self, *args, **kwargs):
         """Instatntiates a new model"""
         if not kwargs:
@@ -23,7 +24,8 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
-            storage.new(self)
+            if env("HBNB_TYPE_STORAGE") != "db":
+                storage.new(self)
         else:
             kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'],
                                                      '%Y-%m-%dT%H:%M:%S.%f')
