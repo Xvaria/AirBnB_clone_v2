@@ -2,7 +2,7 @@
 """ Console Module """
 import cmd
 import sys
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
 from models.__init__ import storage
 from models.user import User
 from models.place import Place
@@ -236,7 +236,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
                 return
             if env("HBNB_TYPE_STORAGE") == "db":
-                for k, v in storage.all(args).items():
+                for k, v in storage.all(eval(args)).items():
                     if k.split('.')[0] == args:
                         print_list.append(str(v))
             else:
