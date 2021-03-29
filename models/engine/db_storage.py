@@ -33,15 +33,15 @@ class DBStorage():
         """"""
         objDict = {}
         if cls:
-            query = self.__session.query(eval(cls)).all()
-            print(query)
-            strKey = "{}.{}".format(cls, query.id)
-            setattr(objDict, strKey, query)
+            query = self.__session.query(cls).all()
+            for obj in query:
+                strKey = "{}.{}".format(type(obj).__name__, obj.id)
+                objDict[strKey] = obj
+
         else:
             classList = ["State", "City"]
             for className in classList:
                 obj = self.__session.query(eval(className)).all()
-                print(obj)
                 strKey = "{}.{}".format(className, obj.id)
                 setattr(objDict, strKey, obj)
         return (objDict)
@@ -49,7 +49,7 @@ class DBStorage():
     def new(self, obj):
         """"""
         self.__session.add(obj)
-        
+
     def save(self):
         """"""
         self.__session.commit()
