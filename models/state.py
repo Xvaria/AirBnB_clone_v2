@@ -9,13 +9,13 @@ import os
 
 class State(BaseModel, Base):
     """ State class """
+    name = ""
     __tablename__ = "states"
     if os.getenv("HBNB_TYPE_STORAGE") == "db":
         name = Column(String(128), nullable=False)
         kwargs = {"cascade": "all, delete-orphan", "backref": "state"}
         cities = relationship("City", **kwargs)
     else:
-        name = ""
         @property
         def cities(self):
             """returns the list of City instances with state_id"""
