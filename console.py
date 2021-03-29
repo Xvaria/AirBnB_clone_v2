@@ -10,6 +10,7 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
+from os import getenv as env
 
 
 class HBNBCommand(cmd.Cmd):
@@ -148,9 +149,12 @@ class HBNBCommand(cmd.Cmd):
             setattr(new_instance, pair[0], pair[1])
 
         # ------------------------------------------------------
-
-        print(new_instance.id)
-        storage.save()
+        if env("HBNB_TYPE_STORAGE") == "db":
+            print(new_instance.id)
+            storage.new(new_instance)
+            storage.save()
+        else:
+            new_instance.save()
 
     def help_create(self):
         """ Help information for the create method """
@@ -226,15 +230,19 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, args):
         """ Shows all objects, or all objects of a class"""
         print_list = []
-
         if args:
             args = args.split(' ')[0]  # remove possible trailing args
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
-                if k.split('.')[0] == args:
-                    print_list.append(str(v))
+            if env("HBNB_TYPE_STORAGE") == "db":
+                for k, v in storage.all(args).items():
+                    if k.split('.')[0] == args:
+                        print_list.append(str(v))
+            else:
+                for k, v in storage._FileStorage__objects.items():
+                    if k.split('.')[0] == args:
+                        print_list.append(str(v))
         else:
             for k, v in storage._FileStorage__objects.items():
                 print_list.append(str(v))
