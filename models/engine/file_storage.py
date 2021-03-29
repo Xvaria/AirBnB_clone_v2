@@ -61,4 +61,7 @@ class FileStorage:
         if obj:
             objDict = obj.to_dict()
             objDict = "{}.{}".format(objDict["__class__"], objDict["id"])
-            self.__objects.pop(objDict)
+            try:
+                self.__objects.pop(objDict)
+            except:
+                pass
