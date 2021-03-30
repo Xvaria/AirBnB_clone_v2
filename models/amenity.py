@@ -6,6 +6,7 @@ from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from os import getenv as env
 
+
 class Amenity(BaseModel, Base):
     """ Definition of the Amenity class object. """
     __tablename__ = "amenities"

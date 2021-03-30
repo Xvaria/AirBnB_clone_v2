@@ -48,6 +48,7 @@ class Place(BaseModel, Base):
         latitude = 0.0
         longitude = 0.0
         amenity_ids = []
+
         @property
         def reviews(self):
             """ Returns the list of City instances with state_id. """
