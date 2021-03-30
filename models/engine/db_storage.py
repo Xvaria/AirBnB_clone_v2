@@ -2,8 +2,8 @@
 """Manages DBstorage Class"""
 from sqlalchemy.orm import sessionmaker, scoped_session, Session
 from sqlalchemy import (create_engine)
-from models.amenity import Amenity
 from models.base_model import Base
+from models.amenity import Amenity
 from models.review import Review
 from models.state import State
 from models.place import Place
@@ -39,7 +39,7 @@ class DBStorage():
                 objDict[strKey] = obj
 
         else:
-            classList = ["State", "City"]
+            classList = ["Amenity", "Review", "State", "Place", "User", "City"]
             for className in classList:
                 obj = self.__session.query(eval(className)).all()
                 strKey = "{}.{}".format(className, obj.id)
