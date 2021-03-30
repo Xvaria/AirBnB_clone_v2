@@ -9,6 +9,11 @@ from os import getenv as env
 class User(BaseModel, Base):
     """This class defines a user by various attributes"""
     __tablename__ = "users"
+    email = ''
+    password = ''
+    first_name = ''
+    last_name = ''
+
     if env("HBNB_TYPE_STORAGE") == "db":
         email = Column(String(128), nullable=False)
         password = Column(String(128), nullable=False)
@@ -17,8 +22,3 @@ class User(BaseModel, Base):
         kwargs = {"cascade": "all, delete-orphan", "backref": "user"}
         places = relationship("Place", **kwargs)
         reviews = relationship("Review", **kwargs)
-    else:
-        email = ''
-        password = ''
-        first_name = ''
-        last_name = ''

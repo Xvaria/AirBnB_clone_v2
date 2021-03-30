@@ -14,13 +14,15 @@ import pep8
 import sys
 import os
 
-classes = ["BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
+classes = ["User", "State", "City", "Amenity", "Place", "Review"]
 Storage = Storage()
 
 
 class TestConsole(unittest.TestCase):
     ''' TestCase class for storing the unittests of the console. '''
 
+    @unittest.skipIf((os.getenv("HBNB_TYPE_STORAGE") == "db"),
+                     "Reason usage of DBStorage")
     def test_create_00(self):
         ''' Tests for the create command. '''
         # Create console session.
