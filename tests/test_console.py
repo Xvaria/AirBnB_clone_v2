@@ -26,15 +26,17 @@ class TestConsole(unittest.TestCase):
         # Create console session.
         cons = self.create_session()
 
-        # Test "create {} name='California'".
-        with patch('sys.stdout', new=StringIO()) as Output:
-            cons.onecmd('create State name=\"California\"')
-            create_stdout = Output.getvalue().strip()
-            create_stdout = 'State.{}'.format(create_stdout)
-            self.assertTrue(create_stdout in Storage.all())
+        # Tests all classes.
+        for className in classes:
+            # Test "create {} test='TEST'".
+            with patch('sys.stdout', new=StringIO()) as Output:
+                cons.onecmd('create {} test=\"TEST\"'.format(className))
+                create_stdout = Output.getvalue().strip()
+                create_stdout = '{}.{}'.format(className, create_stdout)
+                self.assertTrue(create_stdout in Storage.all())
 
     @classmethod
-    def teardown(cls):
+    def tearDown(self):
         ''' Removes the file.json on each test. '''
         try:
             os.remove("file.json")
