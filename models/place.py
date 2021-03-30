@@ -2,8 +2,16 @@
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
+from sqlalchemy import Table
 from sqlalchemy.orm import relationship
 from os import getenv as env
+
+
+place_amenity = Table('place_amenity', Base.metadata,
+                      Column('place_id', String(60),
+                             ForeignKey('places.id')),
+                      Column('amenity_id', String(60),
+                             ForeignKey('amenities.id')))
 
 
 class Place(BaseModel, Base):
@@ -20,16 +28,40 @@ class Place(BaseModel, Base):
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
     amenity_ids = []
+    # If using DB storage.
     if env("HBNB_TYPE_STORAGE") == "db":
         kwargs = {"cascade": "all, delete-orphan", "backref": "place"}
         reviews = relationship("Review", **kwargs)
+        # Dictinary for each relationship.
+        kwargs = {"secondary": place_amenity,
+                  "back_populates": "place_amenities",
+                  "viewonly": False}
+        amenities = relationship("Amenity", **kwargs)
     else:
+        amenity_ids = self.amenities()
+
         @property
         def reviews(self):
-            """returns the list of City instances with state_id"""
+            """ Returns the list of City instances with state_id. """
             objDict = FileStorage.all()
             reviewList = []
-            for key, value in objDict:
-                if value.place_id == self.id:
-                    reviewList.append(value)
+            for key, obj in objDict:
+                if obj.place_id == self.id:
+                    reviewList.append(obj)
             return (reviewList)
+
+        @property
+        def amenities(self):
+            """ Returns the list of Amenity instances related with place. """
+            objDict = FileStorage.all()
+            amenityList = []
+            for key, obj in objDict:
+                if obj.place_id == self.id:
+                    amenityList.append(obj)
+            return (amenityList)
+
+        @setter.amenities
+        def amenities(self, cls):
+            """ Sets the value of amenity_ids attribute. """
+            if type(cls) == Amenity:
+                self.amenity_ids.append(cls.id)
