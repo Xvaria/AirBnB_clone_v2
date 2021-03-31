@@ -5,8 +5,8 @@ Usage:
     "python3 -m unittest discover tests" command or
     "python3 -m unittest tests/test_console.py"
 """
-from models.engine.file_storage import FileStorage as Storage
-# from models.engine.__init__ import FileStorage as Storage
+# from models.engine.file_storage import FileStorage as Storage
+from models.__init__ import storage
 from unittest.mock import create_autospec, patch
 from console import HBNBCommand
 from io import StringIO
@@ -16,7 +16,7 @@ import sys
 import os
 
 classes = ["User", "State", "City", "Amenity", "Place", "Review"]
-Storage = Storage()
+# Storage = Storage()
 
 
 class TestConsole(unittest.TestCase):
@@ -36,7 +36,7 @@ class TestConsole(unittest.TestCase):
                 cons.onecmd('create {} test=\"TEST\"'.format(className))
                 create_stdout = Output.getvalue().strip()
                 create_stdout = '{}.{}'.format(className, create_stdout)
-                self.assertTrue(create_stdout in Storage.all())
+                self.assertTrue(create_stdout in storage.all())
 
     @classmethod
     def tearDown(self):

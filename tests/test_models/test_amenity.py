@@ -2,8 +2,12 @@
 """ """
 from tests.test_models.test_base_model import test_basemodel
 from models.amenity import Amenity
+import unittest
+import os
 
 
+@unittest.skipIf((os.getenv("HBNB_TYPE_STORAGE") == "db"),
+                 "Reason usage of DBStorage")
 class test_Amenity(test_basemodel):
     """ """
 
