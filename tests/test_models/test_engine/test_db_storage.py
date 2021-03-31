@@ -15,3 +15,6 @@ class test_DBStorage(TestCase):
     })
     def test_00(self):
         pass
+
+if __name__ == "__main__":
+    unittest.main()

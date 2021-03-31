@@ -54,3 +54,6 @@ class TestConsole(unittest.TestCase):
     def create_session(self, server=None):
         ''' Creates the cmd session. '''
         return HBNBCommand(stdin=self.mock_stdin, stdout=self.mock_stdout)
+
+if __name__ == "__main__":
+    unittest.main()
