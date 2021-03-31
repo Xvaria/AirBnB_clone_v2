@@ -37,15 +37,6 @@ class TestConsole(unittest.TestCase):
                 create_stdout = '{}.{}'.format(className, create_stdout)
                 self.assertTrue(create_stdout in Storage.all())
 
-    def test_create_User(self):
-        # Create console session.
-        cons = self.create_session()
-        with patch('sys.stdout', new=StringIO()) as Output:
-            cons.onecmd('create User email=\"TEST\" user=\"TEST\"')
-            create_stdout = Output.getvalue().strip()
-            create_stdout = 'User.{}'.format(create_stdout)
-            self.assertTrue(create_stdout in Storage.all())
-
     @classmethod
     def tearDown(self):
         ''' Removes the file.json on each test. '''
