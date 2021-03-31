@@ -15,6 +15,7 @@ import pep8
 import sys
 import os
 
+
 classes = ["User", "State", "City", "Amenity", "Place", "Review"]
 # Storage = Storage()
 

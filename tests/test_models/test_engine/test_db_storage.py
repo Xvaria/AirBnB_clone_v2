@@ -3,8 +3,9 @@
 from unittest import TestCase, mock
 import os
 
+
 class test_DBStorage(TestCase):
-    """  """
+    """ test description for function """
     @mock.patch.dict(os.environ, {
         "HBNB_ENV": "test",
         "HBNB_MYSQL_USER": "hbnb_test",
@@ -14,6 +15,7 @@ class test_DBStorage(TestCase):
         "HBNB_TYPE_STORAGE": "db",
     })
     def test_00(self):
+        """ test description for function """
         pass
 
 if __name__ == "__main__":
