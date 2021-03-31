@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Manages DBstorage Class"""
+""" Manages DBstorage Class """
 from sqlalchemy.orm import sessionmaker, scoped_session, Session
 from sqlalchemy import (create_engine)
 from models.base_model import Base
@@ -13,12 +13,12 @@ from models.city import City
 
 
 class DBStorage():
-    """Class for logic of the DataBase"""
+    """ Class for logic of the DataBase """
     __engine = None
     __session = None
 
     def __init__(self):
-        """"""
+        """ Definition of the inital method. """
         user = env("HBNB_MYSQL_USER")
         passwd = env("HBNB_MYSQL_PWD")
         host = env("HBNB_MYSQL_HOST")
@@ -30,7 +30,7 @@ class DBStorage():
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """"""
+        """ Returns the dictionary of all current objects. """
         objDict = {}
         if cls:
             query = self.__session.query(cls).all()
@@ -47,19 +47,19 @@ class DBStorage():
         return (objDict)
 
     def new(self, obj):
-        """"""
+        """ Adds a new object to session. """
         self.__session.add(obj)
 
     def save(self):
-        """"""
+        """ Commits the current session to the DB. """
         self.__session.commit()
 
     def delete(self, obj=None):
-        """"""
+        """ Deletes an object from the current session. """
         self.__session.delete(obj)
 
     def reload(self):
-        """"""
+        """ Reloads the engine, session and objects. """
         Base.metadata.create_all(self.__engine)
         session = sessionmaker(expire_on_commit=False, bind=self.__engine)
         Session = scoped_session(session)
