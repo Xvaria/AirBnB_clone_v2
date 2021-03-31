@@ -5,7 +5,8 @@ Usage:
     "python3 -m unittest discover tests" command or
     "python3 -m unittest tests/test_console.py"
 """
-from models.engine.file_storage import FileStorage as Storage
+# from models.engine.file_storage import FileStorage as Storage
+from models.engine.__init__ import FileStorage as Storage
 from unittest.mock import create_autospec, patch
 from console import HBNBCommand
 from io import StringIO
