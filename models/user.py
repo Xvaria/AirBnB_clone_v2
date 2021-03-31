@@ -13,7 +13,6 @@ class User(BaseModel, Base):
     password = ''
     first_name = ''
     last_name = ''
-
     if env("HBNB_TYPE_STORAGE") == "db":
         email = Column(String(128), nullable=False)
         password = Column(String(128), nullable=False)
