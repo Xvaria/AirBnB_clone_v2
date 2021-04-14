@@ -39,10 +39,10 @@ ln -s /data/web_static/releases/test/ /data/web_static/current
 chown -R ubuntu:ubuntu /data/
 
 # Add /hbnb_static location on nginx's default file. - - - - - - - - - - - - -|
-if ! grep -q "hbnb_static" /etc/nginx/sites-available/default; then
-    Line='\\n\tlocation /hbnb_static {\n\t\t alias /data/web_static/current/;\n\t}'
-    sed -i "37i $Line" /etc/nginx/sites-available/default
-fi
+# if ! grep -q "hbnb_static" /etc/nginx/sites-available/default; then
+#     Line='\\n\tlocation /hbnb_static {\n\t\t alias /data/web_static/current/;\n\t}'
+#     sed -i "37i $Line" /etc/nginx/sites-available/default
+# fi
 
 # Restart nginx's service. - - - - - - - - - - - - - - - - - - - - - - - - - -|
 service nginx restart
