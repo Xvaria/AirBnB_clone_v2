@@ -27,27 +27,30 @@ def do_deploy(archive_path):
 
         # variables to be used
         tgzname = archive_path.split("/")[-1]
-        path = "/data/web_static/releases/{}/".format(tgzname[:-4])
+        webpath = "/data/web_static/releases/{}/".format(tgzname[:-4])
         tmpath = "/tmp/{}".format(tgzname)
         sympath = "/data/web/static/current"
 
         # create folder to tgz file
-        run("mkdir -p {}".format(path))
+        run("mkdir -p {}".format(webpath))
 
         # uncompressed tgz file
-        run("tar -xzf {} -C {}".format(tmpath, path))
+        run("tar -xzf {} -C {}".format(tmpath, webpath))
 
         # remove tgz
         run("rm {}".format(tmpath))
 
         # move all uncompressed files
-        run("mv {}web_static/* {}".format(path, path))
+        run("mv {}web_static/* {}".format(webpath, webpath))
+
+        # remove web_static folder
+        run("rm -rf {}/web_static".format(webpath))
 
         # remove the symbolic link
         run("rm -rf {}".format(sympath))
 
         # create new symbolic link
-        run("ln -s {} {}".format(path, sympath))
+        run("ln -s {} {}".format(webpath, sympath))
         return(True)
 
     except:
