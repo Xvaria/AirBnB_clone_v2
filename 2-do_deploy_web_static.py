@@ -8,6 +8,7 @@ from datetime import datetime
 env.hosts = ["{}@35.196.187.53".format(env.user),
              "{}@34.75.244.141".format(env.user)]
 
+
 def do_pack():
     '''Packing web_static to versions/web_static_20170314233357.tgz'''
     if not path.exists("versions"):
@@ -15,6 +16,7 @@ def do_pack():
     local("tar -czf versions/web_static_{}.tgz web_static".
           format(str(datetime.now()).split(".")[0].replace("-", "").
                  replace(" ", "").replace(":", "")))
+
 
 def do_deploy(archive_path):
     '''distributes an archive to your web servers'''
