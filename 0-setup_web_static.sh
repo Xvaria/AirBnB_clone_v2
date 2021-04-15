@@ -36,7 +36,7 @@ fi
 ln -s /data/web_static/releases/test/ /data/web_static/current
 
 # Change user and group of /data/*.  - - - - - - - - - - - - - - - - - - - - -|
-chown -RL ubuntu:ubuntu /data/
+chown -R ubuntu:ubuntu /data/
 
 # Add /hbnb_static location on nginx's default file. - - - - - - - - - - - - -|
 if ! grep -q "hbnb_static" /etc/nginx/sites-available/default; then
