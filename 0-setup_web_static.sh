@@ -46,4 +46,3 @@ fi
 
 # Restart nginx's service. - - - - - - - - - - - - - - - - - - - - - - - - - -|
 service nginx restart
-exit 0
