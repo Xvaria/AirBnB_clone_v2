@@ -4,8 +4,8 @@
 
 def do_pack():
     """ Packs the contents of the /web_static directory in .tgz """
-    from fabric.api import local
     from datetime import datetime
+    from fabric.api import local
     from os import path, getcwd
 
     if path.exists("./versions") is False:
