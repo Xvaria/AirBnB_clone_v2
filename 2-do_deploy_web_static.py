@@ -31,7 +31,7 @@ def do_deploy(archive_path):
         tgzname = archive_path.split("/")[-1]
         webpath = "/data/web_static/releases/{}/".format(tgzname[:-4])
         tmpath = "/tmp/{}".format(tgzname)
-        sympath = "/data/web/static/current"
+        sympath = "/data/web_static/current"
 
         # create folder to tgz file
         run("mkdir -p {}".format(webpath))
