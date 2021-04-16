@@ -10,6 +10,7 @@ env.hosts = ["{}@35.196.187.53".format(env.user),
 
 env.tgz = ""
 
+
 def do_pack():
     """ Create directory if doesn't exist and backup folder web_static """
     time = str(datetime.now()).split(".")[0].replace(
@@ -18,6 +19,7 @@ def do_pack():
         local("mkdir -p versions")
     local("tar -czf versions/web_static_{}.tgz web_static".format(time))
     env.tgz = ("versions/web_static_{}.tgz".format(time))
+
 
 def do_deploy(archive_path):
     '''distributes an archive to your web servers'''
@@ -58,6 +60,7 @@ def do_deploy(archive_path):
 
     except:
         return(False)
+
 
 def deploy():
     '''creates and distributes an archive to your web servers'''
