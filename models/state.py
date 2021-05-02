@@ -20,9 +20,12 @@ class State(BaseModel, Base):
         @property
         def cities(self):
             """returns the list of City instances with state_id"""
-            objDict = FileStorage.all()
+            objDict = FileStorage().all()
             citiesList = []
-            for key, value in objDict:
-                if value.state_id == self.id:
-                    citiesList.append(value)
+            for key, value in objDict.items():
+                try:
+                    if value.state_id == self.id:
+                        citiesList.append(value)
+                except:
+                    pass
             return (citiesList)
