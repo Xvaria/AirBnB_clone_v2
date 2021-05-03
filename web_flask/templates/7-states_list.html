@@ -5,8 +5,10 @@
     </HEAD>
     <BODY>
         <H1>States</H1>
-        {% for key, value in states_list|dictsort(True) %}
-		<LI>{{ value.id }}: <B>{{ value.name }}</B></LI>
-		{% endfor %}
+		<UL>
+          {% for key, value in states_list|dictsort(True) %}
+		  <LI>{{ value.id }}: <B>{{ value.name }}</B></LI>
+		  {% endfor %}
+		</UL>
     </BODY>
 </HTML>
