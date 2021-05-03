@@ -23,8 +23,7 @@ def states_list():
 @app.teardown_appcontext
 def close(states):
     ''' Close the connection with db '''
-    if states is not None:
-        storage.close()
+    storage.close()
 
 
 if __name__ == '__main__':
