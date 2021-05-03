@@ -23,7 +23,7 @@ def states(id=None):
         cities_l[value.name] = value
     for key, value in states.items():
         states_l[value.name] = value
-    if id == None:
+    if id is None:
         return render_template('9-states.html', states_l=states_l, id=id)
     else:
         count = 0
